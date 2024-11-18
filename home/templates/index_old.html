@@ -1,0 +1,20 @@
+{% extends "basic_generic.html" %}
+{% load static %}
+{% block content %}
+<h1>Start</h1>
+<div>
+    <form method="POST" action="{% url "question_submit" %}">
+        {% csrf_token %}
+    {% for  question in questions %}
+    <h2>{{question.text}}</h2>
+    <div>
+        {% for choice in question.choices.all %}
+        <input type="radio" id="choice_{{choice.id}}" name="question_{{question.id}}" value="{{choice.id}}" checked/>
+        <label for="choice_{{choice.id}}">{{choice.text}}</label>
+        {% endfor %}
+    </div> 
+    {% endfor %}
+    <button type="submit" class="btn btn-dark">Submit</button>
+</form>
+</div>
+{% endblock content %}
